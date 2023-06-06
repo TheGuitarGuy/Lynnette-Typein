@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy-default-osk.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/CTAT.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="Assets/typein-whole-common.css"
+      type="text/css"
+    />
+    <script>
+    const nProbDict = {
+      opStr: '0'
+    }
+
+    const focusPracticeStepDict = {
+      stepName: ''
+    }
+
+    const nImplicitStepsDict = {
+      stepCount: ''
+    }
+
+    Object.defineProperty(nProbDict, "getOpStr", {
+        get : function () {
+            return this.opStr;
+        }
+    });
+    Object.defineProperty(nProbDict, "setOpStr", {
+        set : function (value) {
+        this.opStr = value;
+        updateOpStrDivText();
+        }
+    });
+    
+    Object.defineProperty(focusPracticeStepDict, "getStep", {
+        get : function () {
+            return this.stepName;
+        }
+    });
+    Object.defineProperty(focusPracticeStepDict, "setStep", {
+        set : function (value) {
+        this.stepName = value;
+        updateStepNameDivText();
+        }
+    });
+
+    Object.defineProperty(nImplicitStepsDict, "getImplicitStepCount", {
+        get : function () {
+            return this.stepCount;
+        }
+    });
+    Object.defineProperty(nImplicitStepsDict, "setImplicitStepCount", {
+        set : function (value) {
+        this.stepCount = value;
+        updateImplicitStepsDivText();
+        }
+    });
+
+    function processOpStr(str) {
+      const opStrElements = str.split(';');
+      var ans = opStrElements.length - 1;
+      return ans>0 ? 'This Problem has an estimated ' + ans + ' Steps' : str
+    }
+
+    function updateOpStrDivText() {
+      var divElement = document.getElementById('nprobpanel');
+      var opStrToProcess = nProbDict.getOpStr;
+      msgToDisplay = processOpStr(opStrToProcess);
+      divElement.textContent = msgToDisplay
+    }
+
+    function updateStepNameDivText() {
+      var divElement = document.getElementById('focuspracticepanel');
+      var msgToDisplay = focusPracticeStepDict.getStep;
+      divElement.textContent = msgToDisplay
+    }
+
+    function updateImplicitStepsDivText() {
+      var divElement = document.getElementById('nimplicitsteppanel');
+      var msgToDisplay = "Great! You just performed "+nImplicitStepsDict.getImplicitStepCount+" steps.";
+      divElement.textContent = msgToDisplay
+    }
+
+    </script>
+    <script src="Assets/transaction_mailer_users.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy_plus_osk.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/jquery.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctat.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctatloader.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/nools.js"></script>
+
+    <script src="Assets/math.js"></script>
+    <script src="Assets/modelhelperfuns.js"></script>
+    <script src="Assets/typein-common.js"></script>
+    <script>
+      window.interfaceType = 'typein';
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="topPanel">
+        <div class="row">
+          <div class="problemText solveGroup">Please solve for x</div>
+        </div>
+        <div class="row">
+          <div id="givenGroup" class="solveGroup">
+            <div
+              id="start"
+              class="CTATMathInput"
+              data-ctat-tutor="false"
+              data-ctat-highlight="false"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div id="skillsContainer"></div>
+      <div id="middlePanel">
+        <template id="rowTemplate">
+          <div class="row">
+            <div
+              class="solveGroup CTATGroupingComponent"
+              data-ctat-use-componentlist="false"
+            >
+              <div class="CTATMathInput" data-ctat-highlight="false"></div>
+              <div class="feedback"></div>
+            </div>
+          </div>
+        </template>
+        <div class="row buttons">
+          <div class="solveGroup">
+            <div id="hintButton" class="CTATHintButton"></div>
+            <div id="doneButton" class="CTATDoneButton"></div>
+          </div>
+        </div>
+        <div class="row hints">
+          <div class="solveGroup">
+            <div id="HintWindow" class="CTATHintWindow"></div>
+          </div>
+        </div>
+        <div id="nprobpanel">
+          Hello
+        </div>
+        <br>
+        <div id="focuspracticepanel">
+          Hello
+        </div>
+        <br>
+        <div id="nimplicitsteppanel">
+          Let's try to solve the equation! Your performed steps will be displayed here.
+        </div>
+        <br>
+        <div id="masterystepestimationpanel">
+          <!-- TODO
+            Let's try to solve the equation! Your remaining steps to mastery will be displayed here.
+          -->
+          Test
+        </div>
+      </div>
+      <div id="bottomPanel">
+        <div
+          id="progressBar"
+          class="CTATSkillWindow"
+          data-ctat-initial="true"
+        ></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var nprob = document.getElementById('nprobpanel');
+		//nprob.textContent = 'TEST' + OPSTR;
+    //https://github.com/CMUCTAT/CTAT/wiki/API
+
+    // start here
+
+    assocRulesListener = {
+      processCommShellEvent: function (evt, msg) {
+        if ('AssociatedRules' != evt || !msg) {
+          return;
+        }
+        console.log('HERE');
+        console.log(msg.getXMLString());
+        var skills = msg.getProperty('Skills');
+
+        var skillsContainer = document.getElementById('skillsContainer');
+        skillsContainer.textContent = JSON.stringify(skills);
+        // CB@KG: can you extract and display all p_knowns and skill names in the frontend?
+        console.log(
+          '[' + evt + ']\n',
+          msg && msg.getProperty ? msg.getProperty('Skills') : msg,
+          '\n',
+          CTAT.ToolTutor.tutor
+            .getProblemSummary()
+            .getSkills()
+            .toJSONforTutorshop()
+        );
+      },
+    };
+    document.addEventListener('tutorInitialized', function () {
+      CTATCommShell.commShell.addGlobalEventListener(assocRulesListener);
+    });
+  </script>
+</html>

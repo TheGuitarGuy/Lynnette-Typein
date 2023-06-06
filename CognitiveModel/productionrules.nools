@@ -223,6 +223,24 @@ rule DoneSolvingForX {
 		var xVal = leftSimpd === p.varName ? rightSimpd : leftSimpd;
 		console.log("solved for x: "+xVal);
 		console.log("skills are: ",getFacts("Skill"));
+		console.log("CI is: "+ci.opStr);
+		// Frontend variable only updated when defined
+		if (typeof nProbDict !== 'undefined') {
+			try {
+				nProbDict.setOpStr = ci.opStr;
+			} catch (error) {
+				console.log("nProbDict is defined but an error occurred:", error);
+				console.log("This is nProbDict:", nProbDict);
+			}			
+		}
+		if (typeof focusPracticeStepDict !== 'undefined') {
+			try {
+				focusPracticeStepDict.setStep = "You can directly finish this problem by performing a "+focusPracticeStep+" step";
+			} catch (error) {
+				console.log("focusPracticeStepDict is defined but an error occurred:", error);
+				console.log("This is focusPracticeStepDict:", focusPracticeStepDict);
+			}			
+		}
 		if ((+xVal)%1 !== 0) {
 			throw new Error("non-integer value of x");
 		} else {
@@ -503,6 +521,36 @@ rule write {
 				case "s": nSimp++; break;
 			}
 		});
+		var performedFocusPracticeOperations = ops.map(([_, secondEntry]) => {
+			if (typeof secondEntry === 'string' && secondEntry.trim() !== '') {
+				const spaceIndex = secondEntry.indexOf(' ');
+				return spaceIndex !== -1 ? secondEntry.slice(0, spaceIndex) : secondEntry;
+			} else {
+				return '';
+		}
+		});
+		// Display number of implicit steps
+		if (typeof nImplicitStepsDict !== 'undefined') {
+			try {
+				nImplicitStepsDict.setImplicitStepCount = performedFocusPracticeOperations.length-1;
+			} catch (error) {
+				console.log("nImplicitStepsDict is defined but an error occurred:", error);
+				console.log("This is nImplicitStepsDict:", error);
+			}	
+		}
+		// If focused-practice step is defined, then set the relevant property to true
+		if (typeof focusPracticeStep !== 'undefined') {
+			if (performedFocusPracticeOperations.includes(focusPracticeStep)) {
+				p.focusPracticeStepComplete = true;
+				try {
+					nProbDict.setOpStr = "You have completed the "+focusPracticeStep+" step! You can now press \"Finish Problem\" to advance or continue solving this problem.";
+				} catch (error) {
+					console.log("nProbDict is defined but an error occurred:", error);
+					console.log("This is nProbDict:", nProbDict);
+				}	
+				console.log('Focus practice step is completed');
+			}
+		}
 		writeInput(input);
 	
 		var skippedTooManySteps = false;
@@ -536,6 +584,7 @@ rule write {
 				if (ops.length && checkEqualEquation(sInputStrs[0], tInputSides[0]) && checkEqualEquation(sInputStrs[1], tInputSides[1])) {
 					//console.log("NOT SWAPPED");
 					//console.log("ops are ",ops);
+					console.log("focus practice steps are",performedFocusPracticeOperations);
 					return true;
 				} else if (checkEqualEquation(sInputStrs[0], tInputSides[1]) && checkEqualEquation(sInputStrs[1], tInputSides[0])) {
 					//console.log("SWAPPED");
@@ -673,6 +722,21 @@ rule write {
 			}
 		} else {
 			//wrong
+			backtrack();
+		}
+	}
+}
+
+rule focusedPracticeDone {
+	when {
+		p: Problem p.focusPracticeStepComplete;
+	}
+	then {
+		assert(new Hint("You've performed your focus practice step, so the problem is done.  Click \"Finish Problem\" to move on"));
+		if (checkSAI({selection: "done", action: "ButtonPressed", input: -1})) {
+			halt();
+		}
+		else {
 			backtrack();
 		}
 	}

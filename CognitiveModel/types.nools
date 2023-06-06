@@ -17,6 +17,8 @@ define Problem {     // do we need this at all? mostly used for accessing the so
 	currTransformation : null,
 	
 	solution: null,
+	
+	focusPracticeStepComplete: false,
 
 	lastRowId: "solve0",
 
