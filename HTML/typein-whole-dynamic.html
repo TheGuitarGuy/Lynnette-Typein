@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy-default-osk.min.css">
+    <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/lab/CTAT.css" type="text/css">
+    <link rel="stylesheet" href="Assets/typein-whole-dynamic.css" type="text/css">
+
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/noolsjs/nools.js"></script>
+    <script src="Assets/guppy_plus_osk.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/jquery.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctatloader.js"></script>
+    <script src="Assets/ctat.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lynnette/modelhelperfuns.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lynnette/math.js"></script>
+    <script src="Assets/Lynnette-animations-dynamic.js"></script>
+    <script> window.interfaceType = "typein" </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="topPanel">
+        <div class="row">
+          <div class="problemText solveGroup">Please solve for x</div>
+          <div id="givenGroup" class="solveGroup">
+            <div id="start" class="CTATMathInput" data-ctat-tutor="false" data-ctat-highlight="false"></div>
+          </div>
+        </div>
+      </div>
+      <div id="middlePanel">
+        <template id="row">
+          <div class="row">
+            <div class="CTATGroupingComponent solveGroup" data-ctat-use-componentlist="false">
+              <div class="CTATMathInput" data-ctat-highlight="false"></div>
+              <div class="feedback"></div>
+            </div>
+          </div>
+        </template>
+        <div class="row buttons">
+          <div class="solveGroup">
+            <div id="hintButton" class="CTATHintButton"></div>
+            <div id="doneButton" class="CTATDoneButton"></div>
+          </div>
+        </div>
+        <div class="row hints">
+          <div class="solveGroup">
+            <div id="HintWindow" class="CTATHintWindow"></div>
+          </div>
+        </div>
+      </div>
+      <div id="bottomPanel">
+        <div id="progressBar" class="CTATSkillWindow" data-ctat-initial="true"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+import("productionrules.nools");
+
+//arbitrary name for the problem
+global pName = "testfile";
+
+//initial left side of the equation
+global initLeft = "2x+3";
+
+//initial right side of the equation
+global initRight = "7";
+
+//whether equation needs to be fully simplified before beginning a new transformation
+global forceSimplify = false;
+
+//the level of step skipping to allow (default 3):
+//  1 = strictly one step at a time (transformation OR simplification)
+//	2 = one transformation at a time + any number of simplifications.  If there is a transformation, it must be the first step
+//	3 = anything goes
+global stepSkipLevel = 2;
+
+//controls the depth of the model's search when stepSkipLevel is not 3 (default false)
+//	true = only search one transformation + any number of simplifications deep
+//	false = search through all possible steps w/ any amount of step skipping
+//	set this to true for better response time, false to have "you are skipping too many steps" feedback enabled
+global shallowSearch = false;
+
+//allow non-strategic transformations
+global allowNonStrategic = true;
+
+//interface type, can be "typein", "diagrams", or "diagrams-choice" (default "typein")
+global interfaceType = "diagrams-choice";
+
+//whether to do diagram steps before typein steps
+global diagramsFirst = true;
