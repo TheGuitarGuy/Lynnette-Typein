@@ -54,30 +54,47 @@ function doPost(req, resp) {
 
 function getResult(tsInfo) {
     let easiestUnmasteredSkill = getEasiestUnmasteredSkill(tsInfo);
-    let selectedProblem = findSmallestProblemBySkillName(tsInfo, easiestUnmasteredSkill);
-    console.log('Easiest Unmastered Skill: '+easiestUnmasteredSkill);
+    if (checkWantsFocusPractice(tsInfo)) {
+        console.log('Wants Focus Practice detected')
+        console.log('Easiest Unmastered Skill: '+easiestUnmasteredSkill);
+        var selectedProblem = findSmallestProblemBySkillName(tsInfo, easiestUnmasteredSkill);
+    } else {
+        console.log('Default practice. Advancing to next problem.')
+        var last = tsInfo.dynamic_model?.current_problem_no || 0; 
+        var selectedProblem = tsInfo.problems[last]?.name || ''
+    }
     console.log('Selected problem '+selectedProblem);
     console.log('Variables: '+getVariableValues(tsInfo));
-    //let last = tsInfo.dynamic_model?.current_problem_no || 0; 
     let result={
         problem_name: checkAllSkillsMastered(tsInfo) ? '' : selectedProblem,//simple selection:// tsInfo.problems[last]?.name || '',
         dynamic_model: {},
     };
-    //result.dynamic_model.current_problem_no = (last < tsInfo.problems?.length ? ++last : 0);
+    result.dynamic_model.current_problem_no = (last < tsInfo.problems?.length ? ++last : 0);
     return result
+}
+
+function checkWantsFocusPractice(tsInfo) {
+    for (let i = 0; i < tsInfo.variables.length; i++) {
+        const variable = tsInfo.variables[i];
+        if (
+        variable.name === "wants_focused_practice" &&
+        variable.value.state === "on"
+        ) {
+        return true;
+        }
+    }
+    return false;
 }
 
 function getVariableValues(tsInfo) {
     const variableValues = [];
-  
     for (let i = 0; i < tsInfo.variables.length; i++) {
-      const variable = tsInfo.variables[i];
-      variableValues.push(variable.name);
-      variableValues.push(variable.value.state);
+        const variable = tsInfo.variables[i];
+        variableValues.push(variable.name);
+        variableValues.push(variable.value.state);
     }
-  
     return variableValues;
-  }
+}
 
 function findSmallestProblemBySkillName(tsInfo, skillName) {
     // Takes tsInfo and skillname and returns 
