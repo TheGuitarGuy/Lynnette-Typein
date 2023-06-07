@@ -19,24 +19,6 @@ let detector_output = {
 	time: ""
 };
 let mailer;
-/*
- * Declare any custom global variables that will be initialized
- * based on "remembered" values across problem boundaries, here
- * (initialize these at the bottom of this file, inside of self.onmessage)
- */ 
-let twoMinutes = 2 * 60 * 1000;
-let thirtySeconds = 30 * 1000;
-//
-//
-//
-//
-
-
-// Declare and/or initialize any other custom global variables for this detector here
-// let timerId3;
-let timerId4;
-let timerId5;
-let timeThreshold = thirtySeconds
 
 function receive_transaction( e ) {
 	// e is the data of the transaction from mailer from transaction assembler
@@ -45,20 +27,19 @@ function receive_transaction( e ) {
 	 * (i.e., to update internal state and history, without
 	 * necessarily updating external state and history)
 	 */ 
-	if(e.data.actor == 'student' && e.data.tool_data.action != "UpdateVariable") {
-		// DO NOT TOUCH
-		rawSkills = e.data.tutor_data.skills
+	if(e.data.actor == 'student' && e.data.tool_data.action == "UpdateRadioButton") {
+		//rawSkills = e.data.tutor_data.skills
 		let currSkills = []
-		for (let property in rawSkills) {
-		    if (rawSkills.hasOwnProperty(property)) {
-		        currSkills.push(rawSkills[property].name + "/" + rawSkills[property].category)
-		    }
-		}
+		//for (let property in rawSkills) {
+		//    if (rawSkills.hasOwnProperty(property)) {
+		//        currSkills.push(rawSkills[property].name + "/" + rawSkills[property].category)
+		//    }
+	//	}
 		detector_output.skill_names = currSkills;
-		detector_output.step_id = e.data.tutor_data.step_id;
+		//detector_output.step_id = e.data.tutor_data.step_id;
 
 		// Custom processing (insert code here)
-	  	clearTimeout(timerId4);
+	  	//clearTimeout(timerId4);
 
 		detector_output.history = e.data.tool_data.tool_event_time
 		if (detector_output.value.state != "off") {
@@ -67,7 +48,11 @@ function receive_transaction( e ) {
 			mailer.postMessage(detector_output);
 			postMessage(detector_output);
 			postMessage({ command: "broadcast", output: detector_output });
-			console.log("idle sending out broadcast command");
+			console.log("wants_focused_practice sending out broadcast command");
+            console.log('we are here 1 and ')
+            console.log('selection is: '+e.data.tool_data.selection)
+            console.log('action is: '+e.data.tool_data.action)
+            console.log('input is: '+e.data.tool_data.input)
 			console.log("output_data = ", detector_output);
 		}
 	}
@@ -75,34 +60,33 @@ function receive_transaction( e ) {
 	 * Set conditions under which detector should update
 	 * external state and history
 	 */ 
-	if(e.data.actor == 'student' && e.data.tool_data.action != "UpdateVariable") {
+	if(e.data.actor == 'student' && e.data.tool_data.action == "UpdateRadioButton") {
 
 		detector_output.time = new Date();
 		detector_output.transaction_id = e.data.transaction_id;
 
-		// Custom processing (insert code here)
-	   //  timerId3 = setTimeout(function() {
-	   //    detector_output.history = e.data.tool_data.tool_event_time
-	   //    detector_output.value = "1, > 1 min"
-	   //    detector_output.time = new Date();
-		  // mailer.postMessage(detector_output);
-		  // postMessage(detector_output);
-		  // console.log("output_data = ", detector_output);  },
-	   //    60000)
-		timerId4 = setTimeout(function() {
-			detector_output.history = e.data.tool_data.tool_event_time;
-			detector_output.value = {...detector_output.value, state: "on", elaboration: ""};
-			detector_output.time = new Date(new Date() - timeThreshold);
-			mailer.postMessage(detector_output);
-			postMessage(detector_output);
-			console.log("idle sending out broadcast command");
-			console.log("output_data = ", detector_output);
-		}, timeThreshold);
+        let checkstr = e.data.tool_data.input;
+        console.log('checkstr: '+checkstr);
+        let checkbool = e.data.tool_data.input.includes('wantsfp');
+        console.log('checkbool: '+checkbool);
+
+        let res_state = e.data.tool_data.input.includes('wantsfp') ? 'on' : e.data.tool_data.input.includes('nofp') ? 'off' : 'OTHER';
+        console.log('res_state: '+res_state);
+
+        detector_output.history = e.data.tool_data.tool_event_time;
+        detector_output.value = {...detector_output.value, state: res_state, elaboration: ""};// e.data.tool_data.action == 'UpdateRadioButton' ? 'on' : 'off';
+        mailer.postMessage(detector_output);
+        postMessage(detector_output);
+        console.log("wants_focused_practice sending out broadcast command");
+        console.log('we are here 2 and ')
+        console.log('selection is: '+e.data.tool_data.selection)
+        console.log('action is: '+e.data.tool_data.action)
+        console.log('input is: '+e.data.tool_data.input)
+        console.log("output_data = ", detector_output);
 
 
 	}
 }
-
 
 self.onmessage = function ( e ) {
     console.log(variableName, " self.onmessage:", e, e.data, (e.data?e.data.commmand:null), (e.data?e.data.transaction:null), e.ports);
@@ -118,49 +102,7 @@ self.onmessage = function ( e ) {
 				detector_output.history = e.data.initializer[initItem].history;
 				detector_output.value = e.data.initializer[initItem].value;
 			}
-		}
-		/*
-		 * Optional: In "detectorForget", specify conditions under which a detector
-		 * should NOT remember their most recent value and history (using the variable "detectorForget").
-		 * (e.g., setting the condition to "true" will mean that the detector
-		 * will always be reset between problems... and setting the condition to "false"
-		 * means that the detector will never be reset between problems)
-		 */
-		detectorForget = true;
-		//
-		//
-
-		if (detectorForget) {
-			detector_output.history = "onLoad";
-			detector_output.value = {state: "off", elaboration: "", image: "HTML/Detectors/Images/idle.svg"};
-		}
-
-
-		detector_output.time = new Date();
-		mailer.postMessage(detector_output);
-		postMessage(detector_output);
-		console.log("output_data = ", detector_output);
-
-
-	   //  timerId3 = setTimeout(function() {
-	   //    detector_output.history = "onLoad"
-	   //    detector_output.value = "1, > 1 min"
-	   //    detector_output.time = new Date();
-		  // mailer.postMessage(detector_output);
-		  // postMessage(detector_output);
-		  // console.log("output_data = ", detector_output);  },
-	   //    60000)
-		timerId4 = setTimeout(function() {
-			detector_output.history = "onLoad";
-			detector_output.value = {...detector_output.value, state: "on", elaboration: ""};
-			detector_output.time = new Date(new Date() - timeThreshold);
-			mailer.postMessage(detector_output);
-			postMessage(detector_output);
-			postMessage({ command: "broadcast", output: detector_output });
-			console.log("idle sending out broadcast command");
-			console.log("output_data = ", detector_output);
-		}, timeThreshold);
-
+		}       
 	break;
     default:
 	break;
