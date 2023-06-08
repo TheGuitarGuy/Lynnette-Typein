@@ -206,8 +206,21 @@
         );
       },
     };
+
+    hintListener = {
+      processCommShellEvent: function(event, msg) {
+        if (event ==="ShowHintsMessage") { //the event fired when tracer gets results of a hint trace
+          let sai = msg.getSAI(); //get the tutor's SAI
+          let component = CTATShellTools.findComponent(sai.getSelection())[0]; //find the component
+          console.log('Hint message listener');
+          console.log('sai: '+sai);
+          console.log('component: '+component);
+          component[sai.getAction()](sai.getInput()); //call component.action(input)
+      }
+    }};
     document.addEventListener('tutorInitialized', function () {
       CTATCommShell.commShell.addGlobalEventListener(assocRulesListener);
+      CTATCommShell.commShell.addGlobalEventListener(hintListener);
     });
   </script>
 </html>
