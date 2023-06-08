@@ -542,12 +542,14 @@ rule write {
 		if (typeof focusPracticeStep !== 'undefined') {
 			if (performedFocusPracticeOperations.includes(focusPracticeStep)) {
 				p.focusPracticeStepComplete = true;
-				try {
-					nProbDict.setOpStr = "You have completed the "+focusPracticeStep+" step! You can now press \"Finish Problem\" to advance or continue solving this problem.";
-				} catch (error) {
-					console.log("nProbDict is defined but an error occurred:", error);
-					console.log("This is nProbDict:", nProbDict);
-				}	
+				if (typeof nProbDict !== 'undefined') {
+					try {
+						nProbDict.setOpStr = "You have completed the "+focusPracticeStep+" step! You can now press \"Finish Problem\" to advance or continue solving this problem.";
+					} catch (error) {
+						console.log("nProbDict is defined but an error occurred:", error);
+						console.log("This is nProbDict:", nProbDict);
+					}
+				}
 				console.log('Focus practice step is completed');
 			}
 		}
