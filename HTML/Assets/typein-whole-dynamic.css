@@ -40,7 +40,7 @@ body {
   border-radius: 10px;
   flex: auto;
   overflow-y: auto;
-  background: var(--lightblue);
+  background: #00FF00;
 }
 #bottomPanel {
   margin: 5px;
