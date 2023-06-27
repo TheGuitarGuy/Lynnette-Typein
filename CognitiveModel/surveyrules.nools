@@ -1,0 +1,44 @@
+define StudentValues {
+  selection: null,
+  action: null,
+  input: null,
+  constructor: function(s,a,i) {
+  	this.selection = s;
+  	this.action = a;
+  	this.input = i;
+  }
+}
+
+define TPA {
+	selection: null,
+	action: null,
+	input: null,
+	constructor: function(s, a, i) {
+		this.selection = s;
+		this.action = a;
+		this.input = i;
+	}
+}
+
+rule bootstrap {  
+    when {  
+      // assume addend1 and addend2 are global variables defined in a problem-specific file which imports this model
+      b: Boolean true from true; 
+    }  
+    then {  
+      console.log('we are here in the bootstrap!');
+      //and so on...
+      halt();  
+    }  
+}
+
+rule doneviasurvey {
+	when {
+		sv: StudentValues sv.action==="ButtonPressed";
+	}
+	then {
+		if (checkSAI({selection: "done", action: "ButtonPressed", input: -1})) {
+			halt();
+		}
+	}
+}
