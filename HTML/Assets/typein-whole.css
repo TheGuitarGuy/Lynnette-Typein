@@ -250,7 +250,7 @@ button.CTAT-hint-button {
   margin-top: 5px;
   flex: none;
   font-family: soleil, sans-serif;
-  font-size: 13px;
+  font-size: 0px;
 }
 
 .CTATSkillWindow--initial {

@@ -1,80 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-
-    <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy-default-osk.min.css">
-    <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/lab/CTAT.css" type="text/css">
-    <link rel="stylesheet" href="Assets/typein-whole-common.css" type="text/css">
-
-    <!--<script src="Assets/transaction_mailer_users.js"></script>-->
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy-default-osk.min.css"
+    />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/CTAT.css"
+      type="text/css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="Assets/typein-whole-common.css"
+      type="text/css"
+    />
     <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy_plus_osk.min.js"></script>
     <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/jquery.min.js"></script>
     <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctat.min.js"></script>
     <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctatloader.js"></script>
     <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/nools.js"></script>
-
     <script src="Assets/math.js"></script>
     <script src="Assets/modelhelperfuns.js"></script>
     <script src="Assets/typein-common.js"></script>
     <script>
-      window.interfaceType = "typein"
+      window.interfaceType = 'typein';
     </script>
   </head>
-
   <body>
-    <div id="container">
-      <div id="topPanel">
-        <div class="row" style="visibility: hidden; display: none;">
-          <div class="problemText solveGroup">Please solve for x</div>
-        </div>
-        <div class="row">
-          <div id="givenGroup" class="solveGroup" style="visibility: hidden; display: none;">
-            <div id="start" class="CTATMathInput" data-ctat-tutor="false" data-ctat-highlight="false"></div>
-          </div>
-        </div>
+    <div id="purplecontainer">
+      <img src="Assets/clap.png" alt="Hands clapping for celebration!"  id = "clap"/>
+      Your effort is outstanding! Keep it up!
+      <br />
+      <div
+        id="praisecontinue"
+        class="CTATButton"
+        name="praisecontinue"
+        data-ctat-tutor="false"
+      >
+        Continue
       </div>
-      <div id="middlePanel">
-        <template id="rowTemplate">
-          <div class="row"  style="visibility: hidden; display: none;">
-            <div class="solveGroup CTATGroupingComponent" data-ctat-use-componentlist="false">
-              <div class="CTATMathInput" data-ctat-highlight="false"></div>
-              <div class="feedback"></div>
-            </div>
-          </div>
-        </template>
-        <div class="row buttons">
-          <div class="solveGroup">
-            <div id="hintButton" class="CTATHintButton" style="visibility: hidden; display: none;"></div>
-          </div>
-        </div>
-        <div class="row hints" style="visibility: hidden; display: none;">
-          <div class="solveGroup">
-            <div id="HintWindow" class="CTATHintWindow" ></div>
-          </div>
-        </div>
-        Your effort is outstanding! Keep it up!
-        <br>
-        <div id="praisecontinue" class="CTATButton" name="praisecontinue" data-ctat-tutor="false" style="margin:5px; display: inline-block;">Continue</div>
-        <div id="doneButton" class="CTATDoneButton" style="visibility: hidden; display: none;"></div>
-      </div>
-      <div id="bottomPanel" style="visibility: hidden; display: none;">
-        <div id="progressBar" class="CTATSkillWindow" data-ctat-initial="true"></div>
-      </div>
+      <div
+        id="doneButton"
+        class="CTATDoneButton"
+        style="visibility: hidden; display: none"
+      ></div>
     </div>
+    <script>
+      // Get the div and button elements
+      const praiseContinueButton = document.getElementById('praisecontinue');
+
+      function pressDoneButton() {
+        const doneButtonDiv = document.getElementById('doneButton');
+        const doneButton = doneButtonDiv.querySelector('button');
+        doneButton.click(); // Simulate a click event on the button element
+      }
+
+      // Add event listeners to the radio buttons
+      praiseContinueButton.addEventListener('click', pressDoneButton);
+    </script>
   </body>
-  <script>
-    // Get the div and button elements
-const praiseContinueButton = document.getElementById('praisecontinue');
-
-function pressDoneButton() {
-  const doneButtonDiv = document.getElementById('doneButton');
-  const doneButton = doneButtonDiv.querySelector('button');
-  doneButton.click(); // Simulate a click event on the button element
-}
-
-// Add event listeners to the radio buttons
-praiseContinueButton.addEventListener('click', pressDoneButton);
-
-      </script>
 </html>
