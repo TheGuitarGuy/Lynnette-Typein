@@ -105,7 +105,7 @@ body {
 .solveGroup .CTATMathInput {
   display: flex;
   text-align: center;
-  font-size: 9vw; /* Adjust the font size using viewport units */
+  font-size: 6vw; /* Adjust the font size using viewport units */
   color: #8648DF;
   border: none;
   white-space: nowrap; /* Add this line to prevent wrapping */
@@ -1468,7 +1468,7 @@ body {
 }
 .guppy_active{
   border-bottom: 2px solid black;
-  padding: 0px 20vw 0px 20vw;
+  padding: 0px 10vw 0px 10vw;
   cursor: text;
   color: #000;
   position: relative;
@@ -1551,15 +1551,24 @@ body {
 .guppy_osk br {
   margin: -3px;
 }
+.mrel{
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .guppy_osk .guppy_osk_key {
   margin: 3px;
-  height: 100%;
+  height: auto;
   width: 100%;
-  background: #ddd;
+  background: #8648DF;
+  color: #F6EFEE;
   border: 1px solid #f9f9f9;
   border-radius: 5px;
   font-size: 5vw;
+  display: flex;           /* Add this */
+  justify-content: center; /* Add this */
+  align-items: center;     /* Add this */
 }
+
 .guppy_osk .guppy_osk_key:hover {
   position: relative;
   top: 1px;
