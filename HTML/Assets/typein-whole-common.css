@@ -21,8 +21,8 @@ html {
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: 'Inter', sans-serif;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x: auto;
   margin: 0;
   height: 100%;
   overflow: hidden
@@ -50,9 +50,11 @@ body {
   padding-right: 45px; 
   font-size: 0px;
 }
-#problemText{
+#problemText {
   font-size: 60px;
-
+  color: #8648DF;
+  padding-bottom: 20px;
+  font-weight: 500;
 }
 
 /* #topPanel {
@@ -236,24 +238,19 @@ body {
   min-height: 24px;
 } */
 
-/* .CTAT--correct {
-  animation-name: correct;
-  animation-duration: 0.7s;
-}
+/* .CTAT--hint {
+  box-shadow: 0px 0px 7px 2px yellow;
+}  */
 
 .CTAT--incorrect {
   animation-name: incorrect;
-  animation-duration: 0.7s;
+  animation-duration: 0.2s;
 }
 
 .CTAT--correct.simulated,
 .CTAT--incorrect.simulated {
   animation-name: none;
 }
-
-.CTAT--hint {
-  box-shadow: 0px 0px 7px 2px yellow;
-} */
 
 /* .feedback {
   width: 15px;
@@ -344,13 +341,13 @@ body {
 .CTAT-done-button {
   min-width: 150px;
   width: 50vw;
-  height: 20vw;
+  height: 15vw;
   background-color: #8648DF;
   color: #F6EFEE;
   border: 0px;
   border-radius: 100px;
   font-family: "Inter";
-  font-size: 8vw;
+  font-size: 6vw;
   font-weight: 400;
   margin-top: 7.5vw;
   text-align: center;
@@ -366,34 +363,15 @@ body {
 
 .CTAT-done-button--text {
   margin-bottom: 0px;
+  font-weight: 500;
 }
 
 .CTAT-hint-button--icon,
 .CTAT-done-button--icon {
   display: none;
 }
-/* 
-.CTATHintWindow {
-  margin: 0px 0px 5px;
-  border: 1px solid blue;
-  height: 100px;
-  display: none;
-  background-color: inherit;
-} */
 
-/* .CTATHintWindow--hint-content {
-  border: none;
-  font-size: 14px;
-  background-color: inherit;
-}
-
-.CTATHintWindow--button {
-  height: 22px;
-  font-size: 12px;
-  line-height: 20px;
-} */
-
-/* .CTATHintWindow--hint-indicator-bullet {
+.CTATHintWindow--hint-indicator-bullet {
   color: var(--blue);
 }
 
@@ -409,7 +387,7 @@ body {
   text-align: center;
   background-color: inherit;
   font-size: 11px;
-} */
+} 
 
 /* .CTATSkillWindow--skill {
   height: 18px;
@@ -1467,15 +1445,15 @@ body {
   border-bottom-width: .08em;
 }
 .guppy_active{
-  border-bottom: 2px solid black;
-  padding: 0px 10vw 0px 10vw;
+  border-bottom: 2px solid #8648DF;
+  padding: 10vw 10vw 0px 10vw;
   cursor: text;
   color: #000;
   position: relative;
 }
 .guppy_inactive {
-  border-bottom: 2px solid black;
-  padding: 0px 20vw 0px 20vw;
+  border-bottom: 2px solid #8648DF;
+  padding: 10vw 20vw 0px 20vw;
   cursor: text;
   color: #000;
   position: relative;
