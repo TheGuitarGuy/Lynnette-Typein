@@ -246,7 +246,7 @@ div.CTATMathInput.CTAT--incorrect div {
   top: -18px;
   border-right: 1px solid black;
   height: inherit;
-  background-color: transparent;
+  background-color: gold;
 }
 .CTATSkillWindow--bar--nonmastered {
   height: 100%;

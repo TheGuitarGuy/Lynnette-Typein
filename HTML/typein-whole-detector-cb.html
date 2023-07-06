@@ -11,6 +11,7 @@
       href="Assets/typein-whole-common.css"
       type="text/css"
     />
+    <!-- <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/current/CTAT.css" type="text/css"> -->
 
     <!-- Your existing script tags -->
     <script src="Assets/transaction_mailer_users.js"></script>
@@ -24,12 +25,69 @@
     <script src="Assets/typein-common.js"></script>
     <script>
       window.interfaceType = 'typein';
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var hintContainer = document.querySelector('.HintContainer');
+        var nextButton = document.querySelector('.CTATHintWindow--next');
+
+        hintContainer.addEventListener('click', function () {
+          nextButton.click();
+        });
+      });
+
+      // Another places where you've used this id:
+
+      function showHintPanel(event) {
+        event.stopPropagation();
+        var mathInput = document.querySelector('.CTATMathInput');
+        mathInput.setAttribute('data-ctat-charlimit', characterLimit);
+
+        slideOutHintContainer.style.display = 'block';
+        slideOutHintContainer.classList.add('show');
+        isHintPanelVisible = true;
+
+        var nextButton = document.querySelector('.CTATHintWindow--next');
+        nextButton.click();
+      }
+
+      function hideHintPanel(event) {
+        var target = event.target;
+        var isHintContainerClicked =
+          target.classList.contains('HintContainer') ||
+          target.closest('.HintContainer') !== null;
+
+        if (isHintPanelVisible && !isHintContainerClicked) {
+          slideOutHintContainer.style.display = 'none';
+          slideOutHintContainer.classList.remove('show');
+          isHintPanelVisible = false;
+        }
+      }
+
+      var mathInput = document.querySelector('.CTATMathInput');
+      mathInput.addEventListener('input', function () {
+        if (mathInput.textContent.length > characterLimit) {
+          mathInput.textContent = mathInput.textContent.slice(
+            0,
+            characterLimit
+          );
+        }
+      });
+
+      mathInput.addEventListener('keydown', function (event) {
+        if (
+          mathInput.textContent.length >= characterLimit &&
+          event.key !== 'Backspace'
+        ) {
+          event.preventDefault();
+        }
+      });
     </script>
   </head>
 
-  <body onclick="hideHintPanel()">
+  <body onclick="hideHintPanel(event)">
     <div id="container">
       <div id="topPanel">
+        <div class="CTATSkillWindow"></div>
         <div class="row">
           <div id="problemText">Solve for x</div>
         </div>
@@ -67,9 +125,6 @@
           </div>
         </div>
       </div>
-      <div id="bottomPanel">
-        <div class="CTATSkillWindow"></div>
-      </div>
     </div>
 
     <!-- Slide-out hint container -->
@@ -78,9 +133,13 @@
       class="slide-out-hint-container"
       style="display: none"
     >
-      <div class="HintContainer">
+      <div class="HintContainer" onclick="hideHintPanel(event)">
         <h2 class="HintTitle">Hint:</h2>
-        <div id="HintWindow" class="CTATHintWindow"></div>
+        <div id="HintWindow" class="CTATHintWindow">
+          <button class="CTATHintWindow--next" style="display: none">
+            Next
+          </button>
+        </div>
       </div>
     </div>
 
@@ -100,10 +159,18 @@
         slideOutHintContainer.style.display = 'block';
         slideOutHintContainer.classList.add('show');
         isHintPanelVisible = true;
+
+        var nextButton = document.getElementById('CTATHintWindow--next');
+        nextButton.click();
       }
 
-      function hideHintPanel() {
-        if (isHintPanelVisible) {
+      function hideHintPanel(event) {
+        var target = event.target;
+        var isHintContainerClicked =
+          target.classList.contains('HintContainer') ||
+          target.closest('.HintContainer') !== null;
+
+        if (isHintPanelVisible && !isHintContainerClicked) {
           slideOutHintContainer.style.display = 'none';
           slideOutHintContainer.classList.remove('show');
           isHintPanelVisible = false;
