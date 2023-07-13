@@ -82,12 +82,69 @@
         }
       });
     </script>
+    <script>
+      function createSkillSelection() {
+        // Fetch Skill Bars
+        var mainDiv = document.getElementById('progressBar');
+
+        // Get all divs with class "CTATSkillWindow--skill" inside the main div
+        var skillDivs = mainDiv.getElementsByClassName(
+          'CTATSkillWindow--skill'
+        );
+        // Iterate over each skill div
+        for (var i = 0; i < skillDivs.length; i++) {
+          var skillDiv = skillDivs[i];
+
+          // Get the label div and fetch its inner HTML
+          var labelDiv = skillDiv.getElementsByClassName(
+            'CTATSkillWindow--label'
+          )[0];
+          var label = labelDiv.innerHTML;
+
+          // Get the mastery bar div and fetch the percentage width
+          var barDiv = skillDiv.getElementsByClassName(
+            'CTATSkillWindow--bar'
+          )[0];
+          var masteryBarDiv = barDiv.getElementsByClassName(
+            'CTATSkillWindow--initial'
+          )[0];
+          var width = masteryBarDiv.style.width;
+
+          // Create a new HTML element with the label and width values
+          var newElement = document.createElement('div');
+
+          // Create a checkbox element
+          var checkbox = document.createElement('div');
+          checkbox.type = 'checkbox';
+          checkbox.id = 'check' + (i + 1); // Add an ID with incrementing numbers
+          checkbox.className = 'CTATCheckBox'; // Add the class "CTATCheckBox"
+          checkbox.name = 'skillSelection'; // Add the name "skillSelection"
+          checkbox.setAttribute('data-ctat-tutor', 'false'); // Add the data attribute "data-ctat-tutor" with value "false"
+          newElement.appendChild(checkbox);
+
+          // Create a label for the checkbox
+          var checkboxLabel = document.createElement('label');
+          checkboxLabel.htmlFor = 'check' + (i + 1); // Set the label's "for" attribute to match the checkbox ID
+          checkboxLabel.textContent = label + ': ' + width;
+          newElement.appendChild(checkboxLabel);
+
+          // Append the new element below the "doneButton" element
+          var doneButton = document.getElementById('doneButton');
+          doneButton.parentNode.insertBefore(newElement, doneButton);
+        }
+      }
+      setTimeout(createSkillSelection, 500);
+    </script>
   </head>
 
   <body onclick="hideHintPanel(event)">
     <div id="container">
+      <div
+        id="progressBar"
+        class="CTATSkillWindow"
+        data-ctat-initial="true"
+      ></div>
       <div id="topPanel">
-        <div class="CTATSkillWindow"></div>
         <div class="row">
           <div id="problemText">Solve for x</div>
         </div>
