@@ -24,6 +24,7 @@ html {
   overflow-y: auto;
   overflow-x: auto;
   margin: 0;
+  background-color: #F6EFEE;
 }
 
 body {
@@ -48,6 +49,7 @@ body {
   padding-right: 45px; 
   font-size: 0px;
   min-height: 100vh; /* This will ensure the container takes at least the full height of the screen, but can expand further if needed */
+  margin-top: 100px;
 }
 
 
@@ -340,6 +342,7 @@ body {
   margin-top: 7.5vw;
   margin-bottom:20px;
 }
+
 .CTATHintContainer {
   position: relative; /* this is the container which will be the reference for the child elements position */
   /* include the styles of your container here */
@@ -430,7 +433,7 @@ body {
 }
 .CTATSkillWindow { /* skill window container */
   /* display: none; */
-  border: 1px solid #CCCCCC;
+  border: 1px solid #F6EFEE;
   border-radius: 5px;
   box-sizing: border-box;
   padding: 5px;
@@ -438,49 +441,37 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background-color: #FAFAFA;
+  background-color: #F6EFEE;
   font-size: 12px;
+  margin-top: 100px;
 }
 .CTATSkillWindow--skill { /* container for meter + label */
   flex: none;
   display: flex;
+  margin-top: 150px;
 }
 .CTATSkillWindow--bar { /* skill meter bar */
   border: 1px solid #CCCCCC;
   border-radius: 0.5em;
-  height: 1em;
+  height: 200px;
   flex: 1;
   overflow: hidden;
-  background-color: white;
+  background-color: #D9D9D9;
 }
-  #noButton{
-  color:#F6EFEE;
-  font-weight: 500;
+.CTATSkillWindow--bar {
+    border-radius: 50px;
+    border-color: var(--green);
+    width: 100%;
+    flex: none;
+    height: 50px;
   }
-  #yesButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60vw; /* Responsive width based on viewport width */
-    height: 18vw; /* Responsive height based on viewport width */
-    border-radius: 30vw; /* Responsive border radius based on viewport width */
-    border: 0px;
-    background: #3CA8FA;
-    color: #F6EFEE;
-    font-size: 7.5vw; /* Responsive font size based on viewport width */
-    cursor: pointer;
-    font-weight: 500;
-    margin-top: 5vh; /* Responsive margin based on viewport height */
-    box-sizing: border-box;
-  }
-
 .CTATSkillWindow--bar--nonmastered { /* skill meter bar non-mastery fill */
-  height: 100%;
-  background: gold;
+  height: 200px;
+  background: #8648DF;
 }
 .CTATSkillWindow--bar--mastery { /* skill meter bar mastery fill */
-  height: 100%;
-  background: #88CC44;
+  height: 200px;
+  background: #3CA8FA;
 }
 .CTATSkillWindow--label { /* skill meter label */
   margin-left: 5px;
@@ -489,46 +480,13 @@ body {
   overflow: hidden;
   text-align: left;
   white-space: nowrap;
+  margin-top: -110px;
+  font-size: 40px;
+  font-weight: 600;
 }
 .CTATSkillWindow--skill {
   height: 18px;
   flex-direction: column;
-}
-.CTATSkillWindow--bar {
-  border-radius: 9px;
-  border-color: var(--green);
-  width: 100%;
-  flex: none;
-  height: 18px;
-}
-.CTATSkillWindow--label {
-  position: relative;
-  top: -17px;
-  margin-left: 3px;
-  flex: none;
-  height: 17px;
-  line-height: 17px;
-}
-.CTATSkillWindow--initial {
-  position: relative;
-  top: -18px;
-  border-right: 1px solid black;
-  height: inherit;
-  background-color: transparent;
-}
-.CTATSkillWindow--bar--nonmastered {
-  height: 100%;
-  background: gold;
-}
-.CTATSkillWindow--bar--mastery {
-  height: 100%;
-  background: limegreen;
-}
-.transition {
-  transition: width 1s ease-in-out;
-}
-.blur {
-  filter: brightness(0.8);
 }
 
 

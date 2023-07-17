@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy-default-osk.min.css"
+    /> -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.ctat.cs.cmu.edu/releases/lab/CTAT.css"
+      type="text/css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="Assets/typein-whole-common.css"
+      type="text/css"
+    />
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/guppy/guppy_plus_osk.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/jquery.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctat.min.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/ctatloader.js"></script>
+    <script src="https://cdn.ctat.cs.cmu.edu/releases/lab/nools.js"></script>
+    <script src="Assets/math.js"></script>
+    <script src="Assets/modelhelperfuns.js"></script>
+    <script src="Assets/typein-common.js"></script>
+    <script>
+      window.interfaceType = 'typein';
+    </script>
+  </head>
+  <body>
+    <div id="purplecontainer">
+      Do you want to achieve mastery faster with harder problems?
+      <br />
+      <div
+        id="noButton"
+        class="CTATButton"
+        name="praisecontinue"
+        data-ctat-tutor="false"
+      >
+        No
+      </div>
+      <div id="yesButton" name="praisecontinue" data-ctat-tutor="false">
+        Yes
+      </div>
+    </div>
+    <script>
+      // Get the div and button elements
+      const praiseContinueButton = document.getElementById('praisecontinue');
+
+      function pressDoneButton() {
+        const doneButtonDiv = document.getElementById('doneButton');
+        const doneButton = doneButtonDiv.querySelector('button');
+        doneButton.click(); // Simulate a click event on the button element
+      }
+
+      // Add event listeners to the radio buttons
+      praiseContinueButton.addEventListener('click', pressDoneButton);
+    </script>
+  </body>
+</html>

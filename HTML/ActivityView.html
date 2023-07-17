@@ -8,20 +8,26 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
       #activityViewTitle {
         font-family: 'Inter', sans-serif;
-        font-size: 30px;
+        font-size: 70px;
+        font-weight: bold;
         position: fixed;
-        top: 10px;
+        top: 10vh;
         left: 10px;
         z-index: 9999;
+      }
+
+      /* Adjust the CSS for CTATSkillWindow */
+      .CTATSkillWindow {
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
       }
     </style>
 
     <!-- Your existing CSS links -->
-    <link
-      rel="stylesheet"
-      href="Assets/typein-whole-common.css"
-      type="text/css"
-    />
+    <link rel="stylesheet" href="Assets/ActivityView.css" type="text/css" />
     <!-- <link rel="stylesheet" href="https://cdn.ctat.cs.cmu.edu/releases/current/CTAT.css" type="text/css"> -->
 
     <!-- Your existing script tags -->
@@ -41,12 +47,12 @@
   <body onclick="hideHintPanel(event)">
     <div id="container">
       <div id="topPanel">
+        <h1 id="activityViewTitle">Activity</h1>
         <div class="CTATSkillWindow"></div>
       </div>
     </div>
 
     <!-- Add the title element -->
-    <div id="activityViewTitle">Activity View</div>
 
     <script>
       var characterLimit = 10;
