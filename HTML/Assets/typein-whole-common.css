@@ -29,6 +29,7 @@ html {
 body {
   margin: 0px;
   background-size: cover;
+  
 }
 
 .tick{
@@ -89,15 +90,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 150vh;
+  height: 100vh; /* Update the height to 100vh */
   text-align: center;
   background-color: #8648DF;
   color: #F6EFEE;
-  font-size: 7.5vw; /* Responsive font size based on viewport width */
+  font-size: 7.5vw;
   font-weight: 400;
-  padding-left: 4.5vw; /* Responsive padding based on viewport width */
-  padding-right: 4.5vw; /* Responsive padding based on viewport width */
+  padding-left: 4.5vw;
+  padding-right: 4.5vw;
 }
+
 #mathInput {
   display: inline-block;
 }
@@ -300,7 +302,7 @@ body {
   color: #8648DF;
   font-size: 7.5vw; /* Responsive font size based on viewport width */
   cursor: pointer;
-  font-weight: 600 !important;
+  font-weight: 500;
   margin-top: 7.5vh; /* Responsive margin based on viewport height */
   box-sizing: border-box;
 }
@@ -424,6 +426,7 @@ body {
   z-index: 11;
 }
 .CTATSkillWindow { /* skill window container */
+  /* display: none; */
   border: 1px solid #CCCCCC;
   border-radius: 5px;
   box-sizing: border-box;
@@ -462,20 +465,6 @@ body {
   overflow: hidden;
   text-align: left;
   white-space: nowrap;
-}
-
-.CTATSkillWindow {
-  margin: 0px;
-  border: none;
-  height: auto;
-  flex: auto;
-  padding: 0px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 5px;
-  text-align: center;
-  background-color: inherit;
-  font-size: 11px;
 }
 .CTATSkillWindow--skill {
   height: 18px;
