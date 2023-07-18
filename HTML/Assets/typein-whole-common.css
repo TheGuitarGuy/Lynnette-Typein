@@ -429,8 +429,8 @@ body {
   z-index: 11;
 }
 .CTATSkillWindow { /* skill window container */
-  /* display: none; */
-  border: 1px solid #CCCCCC;
+  display: none;
+  /* border: 1px solid #CCCCCC;
   border-radius: 5px;
   box-sizing: border-box;
   padding: 5px;
@@ -439,7 +439,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #FAFAFA;
-  font-size: 12px;
+  font-size: 12px; */
 }
 .CTATSkillWindow--skill { /* container for meter + label */
   flex: none;

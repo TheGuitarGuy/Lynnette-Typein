@@ -1,0 +1,13 @@
+import('productionrules.nools');
+global pName = '6x+3_eq_x+13';
+global initLeft = '6x+3';
+global initRight = 'x+13';
+global stepSkipLevel = 3;
+global shallowSearch = false;
+global forceSimplify = false;
+global pregenConflictTree = false;
+global parseProblem = true;
+global interfaceType = 'typein';
+global operatorsFirst = true;
+global language = "english";
+global diagramsFirst = false;

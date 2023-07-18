@@ -57,5 +57,20 @@
       // Add event listeners to the radio buttons
       praiseContinueButton.addEventListener('click', pressDoneButton);
     </script>
+    <script>
+      // Get the div and button elements
+      const wantsFpRadioButton = document.getElementById('yesButton');
+      const noFpRadioButton = document.getElementById('noButton');
+
+      function pressDoneButton() {
+        const doneButtonDiv = document.getElementById('doneButton');
+        const doneButton = doneButtonDiv.querySelector('button');
+        doneButton.click(); // Simulate a click event on the button element
+      }
+
+      // Add event listeners to the radio buttons
+      wantsFpRadioButton.addEventListener('click', pressDoneButton);
+      noFpRadioButton.addEventListener('click', pressDoneButton);
+    </script>
   </body>
 </html>
